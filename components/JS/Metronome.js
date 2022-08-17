@@ -77,8 +77,8 @@ function Metronome(props) {
       </div>
     </div>
       <div className={css.controls}>
-        <audio src="./asset/strongbeat.wav" ref={strongRef}></audio>
-        <audio src="./asset/weakbeat.wav" ref={weakRef}></audio>
+        <audio src="/metronome/asset/strongbeat.wav" ref={strongRef}></audio>
+        <audio src="/metronome/asset/weakbeat.wav" ref={weakRef}></audio>
         <button
           className={`${css.button} ${css.decrease}`}
           onPointerDown={handleControl}
