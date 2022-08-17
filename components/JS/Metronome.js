@@ -74,10 +74,14 @@ function Metronome(props) {
       <div className={css.controls}>
         <button
           className={`${css.button} ${css.decrease}`}
-          onPointerDown={handleControl}
-          onPointerLeave={stopChanging}
-          onPointerUp={stopChanging}
-          onPointerCancel={stopChanging}
+          onMouseDown={handleControl}
+          onMouseUp={stopChanging}
+          onMouseOut={stopChanging}
+
+          onTouchStart={handleControl}
+          onTouchCancel={stopChanging}
+          onTouchEnd={stopChanging}
+          onTouchMove={stopChanging}
         >
           -
         </button>
@@ -90,10 +94,15 @@ function Metronome(props) {
       </button>
         <button
           className={`${css.button} ${css.increase}`}
-          onPointerDown={handleControl}
-          onPointerLeave={stopChanging}
-          onPointerUp={stopChanging}
-          onPointerCancel={stopChanging}
+          onMouseDown={handleControl}
+          onMouseUp={stopChanging}
+          onMouseOut={stopChanging}
+
+          onTouchStart={handleControl}
+          onTouchCancel={stopChanging}
+          onTouchEnd={stopChanging}
+          onTouchMove={stopChanging}
+
         >
           +
         </button>

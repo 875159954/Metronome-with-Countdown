@@ -5,7 +5,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: rgb(227, 239, 243);
-
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* Chrome 和 Safari */
+  -moz-backface-visibility: hidden; /* Firefox */
+  -ms-backface-visibility: hidden; /* Internet Explorer */
 }
 
 a {
