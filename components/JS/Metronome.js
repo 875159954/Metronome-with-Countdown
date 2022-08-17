@@ -1,15 +1,13 @@
 import css from "../UI/Metronome.module.scss";
 
 import { useRef, useState, useEffect } from "react";
-import { userAgent } from "next/server";
+import SoundMaker from './SoundMaker'
 
 function Metronome(props) {
   const [bpm, setBpm] = useState(60);
   const [beatsPerMeasure, setbeatsPerMeasure] = useState(4);
   const [ticking, setTicking] = useState(false);
   const [controlId, setControlId] = useState(-1);
-  const strongRef = useRef();
-  const weakRef = useRef();
   const barsRef = useRef();
 
   function togglePlay() {
@@ -21,9 +19,6 @@ function Metronome(props) {
     let id = -1;
     if (ticking) {
       id = setInterval(() => {
-        if (counter % beatsPerMeasure) weakRef.current.play();
-        else strongRef.current.play();
-
         const bars = Array.from(barsRef.current.children);
         for (let i = 0; i < bars.length; i++){
           if(i==counter)  {
@@ -77,13 +72,14 @@ function Metronome(props) {
       </div>
     </div>
       <div className={css.controls}>
-        <audio src="/metronome/asset/strongbeat.wav" ref={strongRef}></audio>
-        <audio src="/metronome/asset/weakbeat.wav" ref={weakRef}></audio>
         <button
           className={`${css.button} ${css.decrease}`}
           onPointerDown={handleControl}
           onPointerLeave={stopChanging}
           onPointerUp={stopChanging}
+          onPointerCancel={stopChanging}
+          onTouchStart={handleControl}
+          onTouchEnd={stopChanging}
         >
           -
         </button>
@@ -99,17 +95,21 @@ function Metronome(props) {
           onPointerDown={handleControl}
           onPointerLeave={stopChanging}
           onPointerUp={stopChanging}
+          onPointerCancel={stopChanging}
+          onTouchStart={handleControl}
+          onTouchEnd={stopChanging}
         >
           +
         </button>
       </div>
  
-      <button onPointerUp={changeBeats}>{ beatsPerMeasure}beats</button>
+      <button onPointerUp={changeBeats}>{beatsPerMeasure}beats</button>
+      <SoundMaker tempo={bpm} ticking={ticking} />
     </div>
   );
 }
 function speedUp(interval, setId, callback) {
-  interval = interval < 50 ? 50 : interval;
+  interval = interval < 100 ? 100 : interval;
   setId(
     setTimeout(() => {
       callback();

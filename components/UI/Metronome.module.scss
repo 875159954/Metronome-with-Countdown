@@ -16,7 +16,7 @@
 .play{
   width: 30px;
   height: 30px;
-  background-color: rgb(109, 108, 108);
+  background-color: white;
   clip-path: polygon(0 0,0 100%,86.6% 50%);
   transform: translateX(10%);
   margin: 0 auto;
@@ -50,14 +50,14 @@
 .button {
   position: absolute;
   &:active {
-      background-color: #fff;
+      background-color: rgb(243, 203, 203);
     }
 }
 .decrease {
   width: 200px;
     height: 200px;
     border-radius: 50%;
-    clip-path: polygon(0 0, 0 100%, 50% 100%, 50% 0);
+    clip-path: polygon(0 0, 0 100%, 51% 100%, 51% 0);
     
 }
 .increase{
