@@ -1,0 +1,91 @@
+@use "variables" as *;
+@use "layout" as *;
+.container {
+  @extend .portrait-center;
+}
+.outer {
+  --angle-end: 360deg;
+  --angle-quater: calc(var(--angle-end) / 4);
+  width: 10em;
+  height: 10em;
+  display: block;
+  border: $border-white 1px solid;
+  border-radius: 50%;
+  background: conic-gradient(
+    $progress-fill 0deg,
+    $progress-fill var(--angle-end),
+    $bg-white var(--angle-end),
+    $bg-white 360deg
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    position: absolute;
+    font-size: 30px;
+  }
+}
+.outer::before {
+  content: "";
+  display: block;
+  width: 0.95em;
+  height: 0.95em;
+  border-radius: 50%;
+  position: absolute;
+  transform: translateY(-4.475em);
+  background-color: $progress-fill;
+}
+.endpoint {
+  display: block;
+  width: 0.95em;
+  height: 0.95em;
+  border-radius: 50%;
+  z-index: 5;
+  transform: rotate(var(--angle-end)) translateY(-4.475em);
+  background-color: $progress-fill;
+}
+
+.inner {
+  width: 8em;
+  height: 8em;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  border: $border-white 1px solid;
+  background-color: $bg-white-hover;
+}
+
+.stopButton {
+  appearance: none;
+  padding: 0.5em 1em;
+  margin-top: 1.5em;
+  border-radius: 3px;
+  border: 1px solid $border-white;
+
+  color: $bg-white;
+  background-color: $button-gray;
+  font-size: 15px;
+
+  transition-property: transform background-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.3s;
+  box-shadow: 0 1px 1px gray;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+
+  &:active {
+    transition-duration: 0.15s;
+    transform: translateY(20%);
+  }
+}
+
+.buttons{
+  margin-top: 30px;
+  display: flex;
+  gap: 1em;
+}
+

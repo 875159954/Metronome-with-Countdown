@@ -1,0 +1,178 @@
+@use "variables" as *;
+
+$duration: 13s;
+$background: rgb(215 134 134);
+$sun: #eded8f;
+$ground: #dfe166;
+.container {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #272c34;
+  width: 400px;
+  height: 400px;
+  transform: translate(-200px,-55px);
+  
+    z-index: 6;
+  border-radius: 10px;
+  animation: slide-in 0.5s ease-in-out;
+  display: none;
+}
+.circle {
+  width: 200px;
+  height: 200px;
+  background-color: $background;
+  border-radius: 50%;
+  overflow: hidden;
+  animation: reset $duration linear infinite both;
+}
+.sun {
+  animation: sun-moveX $duration linear infinite;
+  &::after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    display: block;
+    box-shadow: 0px 0px 20px yellow;
+    background-color: $sun;
+    border-radius: 50%;
+    animation: sun-moveY $duration ease-in-out infinite both;
+  }
+}
+.left {
+  width: 130px;
+  height: 100px;
+  clip-path: polygon(70% 0%, 100% 100%, 20% 100%);
+  animation: left $duration linear infinite both;
+}
+.shadow {
+  width: 200px;
+  height: 30px;
+  background-color: black;
+  position: relative;
+  top: -100px;
+  clip-path: polygon(13% 0, 70% 100%, 84% 0);
+  animation: shadow $duration linear infinite both;
+}
+
+.right {
+  width: 130px;
+  height: 100px;
+  position: absolute;
+  top: 150px;
+  left: 190px;
+  clip-path: polygon(1% 0%, 20% 100%, 60% 100%);
+  animation: right $duration linear infinite both;
+}
+.land {
+  background-color: $ground;
+  width: 200px;
+  height: 100px;
+}
+@keyframes sun-moveX {
+  from {
+    transform: translateX(-80px) scale(0.4);
+  }
+  50% {
+    transform: translateX(70px) scale(0.7);
+  }
+  to {
+    transform: translateX(150px) scale(0.3);
+  }
+}
+@keyframes sun-moveY {
+  from {
+    transform: translateY(150%);
+  }
+  40% {
+    transform: translateY(10%);
+  }
+  to {
+    transform: translateY(190%);
+  }
+}
+@keyframes left {
+  from {
+    background-color: #ffffff;
+  }
+  50% {
+    background-color: #eaeaea;
+  }
+  to {
+    background-color: #858d99;
+  }
+}
+@keyframes right {
+  from {
+    background-color: #858d99;
+  }
+
+  50% {
+    background-color: #eaeaea;
+  }
+
+  to {
+    background-color: #ffffff;
+  }
+}
+@keyframes reset {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  30%,
+  70% {
+    opacity: 1;
+  }
+}
+@keyframes shadow {
+  from {
+    clip-path: polygon(13% 0, 100% 100%, 84% 0);
+    background-color: rgb(146, 141, 141);
+  }
+  50% {
+    clip-path: polygon(13% 0, 30% 30%, 84% 0);
+  }
+  to {
+    clip-path: polygon(13% 0, 5% 100%, 84% 0);
+    background-color: rgb(117, 116, 116);
+  }
+}
+@keyframes slide-in {
+  from {
+    transform: translate3d(-133px, -207px, 0) scale(0.11, 0.08);
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(-200px, -55px) scale(1);
+  }
+}
+.shiftMode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  appearance: none;
+  position: absolute;
+  transform: translate(50px,-20px);
+  border: none;
+  z-index: 6;
+  background-color: inherit;
+  transition: all 0.3s ease-in-out;
+  font-size: 25px;
+
+  &:hover {
+    transform: translate(50px, -20px) scale(1.2);
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px $button-gray;
+  }
+
+  &:active {
+    transform: translate(50px, -20px) scale(0.8);
+  }
+}

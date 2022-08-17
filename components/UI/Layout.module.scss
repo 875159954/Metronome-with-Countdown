@@ -1,0 +1,21 @@
+.container{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 500px 250px 200px;
+  grid-template-rows: 500px ;
+  align-items: center;
+  justify-items: center;
+  user-select: none;
+}
+
+@media (max-width:600px) {
+  .container{
+    display:flex;
+    flex-direction: column;
+    transform: scale(0.8);
+    max-width: 400px;
+    gap: 40px;
+  }
+  
+}

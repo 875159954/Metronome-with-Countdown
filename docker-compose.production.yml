@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  NextApp:
+    container_name: NextMetronome
+    image: metronome
+    build:
+      context: ./
+      dockerfile: Dockerfile.production
+    ports:
+      - 3001:3000
+networks:
+  default:
+    name: dog
+    external: true
+    

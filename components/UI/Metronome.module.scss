@@ -1,0 +1,121 @@
+@use './variables' as *;
+
+.container {
+  width: 95%;
+  height: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: rgb(89, 89, 182);
+    background: linear-gradient(270deg, $dark-blue 0%, rgba(0, 148, 225, 1) 6%, rgb(0, 153, 255) 50%, rgba(0, 148, 225, 1) 93%, $dark-blue 100%);
+    box-shadow: 3px 3px 5px $dark-blue;
+}
+.play{
+  width: 30px;
+  height: 30px;
+  background-color: rgb(109, 108, 108);
+  clip-path: polygon(0 0,0 100%,86.6% 50%);
+  transform: translateX(10%);
+  margin: 0 auto;
+}
+.square{
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  margin: 0 auto;
+
+}
+.player{
+  padding: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: lightblue;
+  z-index: 1;
+  &:active{
+    background-color: rgb(172, 172, 172);
+  }
+}
+.controls{
+  font-family: monospace;
+  width: 100%;
+  height: 150px;
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  position: absolute;
+  &:active {
+      background-color: #fff;
+    }
+}
+.decrease {
+  width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    clip-path: polygon(0 0, 0 100%, 50% 100%, 50% 0);
+    
+}
+.increase{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  clip-path: polygon(50% 0,50% 100% ,100% 100%, 100% 0);
+}
+.screen{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.5em;
+  width: 100%;
+  font-size: 40px;
+  color: $text-white;
+  border: rgb(35, 119, 145) 2px solid;
+  background-color: $lighter-blue;
+  border-radius: 10px;
+  >span:nth-child(2)::after {
+    content: 'bpm';
+    font-size: 10px;
+    font-weight: bold;
+    position: absolute;
+    transform: translate3d(50%,250%,0);
+  }
+}
+.depictor{
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+
+.bars{
+  width: 95%;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: space-evenly;
+
+}
+.bar{
+  width: 100%;
+  height: 10px;
+  border-radius: 2px;
+  background-color: #53d3f3;
+}
+.currentBar{
+  animation: sparkle var(--sparkle-time)  both;
+}
+
+@keyframes sparkle {
+  from{
+    background-color: #6ddefa;
+  }
+  20%{
+    background-color: #6ddefa;
+    transform: translate3d(0,30%,0);
+  }
+}

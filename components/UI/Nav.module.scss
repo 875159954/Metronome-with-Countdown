@@ -1,0 +1,46 @@
+@use './variables' as *;
+.bg{
+  display: block;
+  background-color: $dark-blue ;
+}
+.nav{
+  color: $text-white;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  max-width: 1200px;
+  font-family: monospace;
+}
+.brand{
+  flex: 1;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  &>span{
+    padding: 10px;
+    font-size: 20px;
+  }
+}
+.slogan{
+  position: absolute;
+  left: 50%;
+  font-size: 20px;
+  transform: translate3d(-50%,0,0);
+}
+.contactButton{
+  appearance: none;
+  font-size: 18px;
+  padding: 0.5em 1em;
+  margin: 10px 0;
+  border-radius: 20px;
+  font-family: monospace;
+  border: none;
+  color:$text-white;
+  background-color: inherit ;
+  border: 2px solid $text-white;
+  transition: all 0.3s ease-in-out;
+  &:hover{
+    cursor: pointer;
+    border-color: $orange;
+  }
+}
