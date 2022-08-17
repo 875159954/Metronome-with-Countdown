@@ -78,8 +78,6 @@ function Metronome(props) {
           onPointerLeave={stopChanging}
           onPointerUp={stopChanging}
           onPointerCancel={stopChanging}
-          onTouchStart={handleControl}
-          onTouchEnd={stopChanging}
         >
           -
         </button>
@@ -96,8 +94,6 @@ function Metronome(props) {
           onPointerLeave={stopChanging}
           onPointerUp={stopChanging}
           onPointerCancel={stopChanging}
-          onTouchStart={handleControl}
-          onTouchEnd={stopChanging}
         >
           +
         </button>
