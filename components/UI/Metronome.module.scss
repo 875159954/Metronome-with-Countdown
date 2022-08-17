@@ -1,6 +1,7 @@
-@use './variables' as *;
+@use "./variables" as *;
 
 .container {
+  touch-action: manipulation;
   width: 95%;
   height: 400px;
   padding: 20px;
@@ -10,35 +11,48 @@
   justify-content: flex-start;
   align-items: center;
   background: rgb(89, 89, 182);
-    background: linear-gradient(270deg, $dark-blue 0%, rgba(0, 148, 225, 1) 6%, rgb(0, 153, 255) 50%, rgba(0, 148, 225, 1) 93%, $dark-blue 100%);
-    box-shadow: 3px 3px 5px $dark-blue;
+  background: linear-gradient(
+    270deg,
+    $dark-blue 0%,
+    rgba(0, 148, 225, 1) 6%,
+    rgb(0, 153, 255) 50%,
+    rgba(0, 148, 225, 1) 93%,
+    $dark-blue 100%
+  );
+  box-shadow: 3px 3px 5px $dark-blue;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Chrome 和 Safari */
+  -moz-backface-visibility: hidden;
+  /* Firefox */
+  -ms-backface-visibility: hidden;
+  /* Internet Explorer */
 }
-.play{
+.play {
   width: 30px;
   height: 30px;
   background-color: white;
-  clip-path: polygon(0 0,0 100%,86.6% 50%);
+  clip-path: polygon(0 0, 0 100%, 86.6% 50%);
   transform: translateX(10%);
   margin: 0 auto;
 }
-.square{
+.square {
   width: 30px;
   height: 30px;
   background-color: white;
   margin: 0 auto;
-
 }
-.player{
+.player {
   padding: 50px;
   border-radius: 50%;
   border: none;
   background-color: lightblue;
   z-index: 1;
-  &:active{
+  &:active {
     background-color: rgb(172, 172, 172);
   }
 }
-.controls{
+.controls {
   font-family: monospace;
   width: 100%;
   height: 150px;
@@ -49,24 +63,24 @@
 }
 .button {
   position: absolute;
+  transition: 0.3s all;
   &:active {
-      background-color: rgb(243, 203, 203);
-    }
+    background-color: rgb(243, 203, 203);
+  }
 }
 .decrease {
   width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    clip-path: polygon(0 0, 0 100%, 51% 100%, 51% 0);
-    
+  height: 200px;
+  border-radius: 50%;
+  clip-path: polygon(0 0, 0 100%, 51% 100%, 51% 0);
 }
-.increase{
+.increase {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  clip-path: polygon(50% 0,50% 100% ,100% 100%, 100% 0);
+  clip-path: polygon(50% 0, 50% 100%, 100% 100%, 100% 0);
 }
-.screen{
+.screen {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,44 +92,42 @@
   border: rgb(35, 119, 145) 2px solid;
   background-color: $lighter-blue;
   border-radius: 10px;
-  >span:nth-child(2)::after {
-    content: 'bpm';
+  > span:nth-child(2)::after {
+    content: "bpm";
     font-size: 10px;
     font-weight: bold;
     position: absolute;
-    transform: translate3d(50%,250%,0);
+    transform: translate3d(50%, 250%, 0);
   }
 }
-.depictor{
+.depictor {
   font-size: 18px;
   margin-top: 5px;
 }
 
-
-.bars{
+.bars {
   width: 95%;
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
   justify-content: space-evenly;
-
 }
-.bar{
+.bar {
   width: 100%;
   height: 10px;
   border-radius: 2px;
   background-color: #53d3f3;
 }
-.currentBar{
-  animation: sparkle var(--sparkle-time)  both;
+.currentBar {
+  animation: sparkle var(--sparkle-time) both;
 }
 
 @keyframes sparkle {
-  from{
+  from {
     background-color: #6ddefa;
   }
-  20%{
+  20% {
     background-color: #6ddefa;
-    transform: translate3d(0,30%,0);
+    transform: translate3d(0, 30%, 0);
   }
 }
