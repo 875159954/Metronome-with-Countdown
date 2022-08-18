@@ -19,3 +19,9 @@ $orange:#fbc73a;
 
 $text-white:$bg-white;
 
+@mixin mobile {
+  @media (max-width:600px) {
+    @content;
+  }
+}
+

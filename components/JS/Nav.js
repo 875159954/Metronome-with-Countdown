@@ -6,7 +6,7 @@ function Nav(props) {
   return (
     <header className={css.bg}>
       <nav className={css.nav}>
-        <div className={css.brand}><TbActivityHeartbeat /><span>dodadoda</span></div>
+        <div className={css.brand}><TbActivityHeartbeat /><span>dudududududududududududu</span></div>
         <button className={css.contactButton} ><span>Contact me</span></button>
       </nav>
     </header>

@@ -1,7 +1,8 @@
-@use './variables' as *;
+@use '/components/UI/variables' as *;
 .bg{
   display: block;
   background-color: $dark-blue ;
+  padding: 3px 20px;
 }
 .nav{
   color: $text-white;
@@ -42,5 +43,21 @@
   &:hover{
     cursor: pointer;
     border-color: $orange;
+  }
+}
+
+@include mobile{
+  .brand{
+    font-size: 40px;
+    &>span{
+      font-size: 15px;
+      display: none;
+    }
+  }
+  .slogan{
+
+  }
+  .contactButton{
+    font-size: 15px;
   }
 }

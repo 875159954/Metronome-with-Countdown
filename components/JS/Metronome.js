@@ -11,7 +11,6 @@ function Metronome(props) {
   const barsRef = useRef();
 
   function togglePlay(e) {
-    e.preventDefault();
     setTicking(!ticking);
   }
   useEffect(
@@ -22,11 +21,10 @@ function Metronome(props) {
       if (ticking) {
         id = setInterval(() => {
           const bars = Array.from(barsRef.current.children);
+          barsRef.current.style.setProperty("--sparkle-time", `${speed / 1000 + 0.1}s`);
           for (let i = 0; i < bars.length; i++) {
             if (i == counter) {
               bars[i].classList.add(css.currentBar);
-              bars[i].style.setProperty("--sparkle-time", `${speed / 1000}s`);
-              console.log(bars[i].style.getPropertyValue("--sparkle-time"));
             } else bars[i].classList.remove(css.currentBar);
           }
           counter = (counter + 1) % beatsPerMeasure;
@@ -121,10 +119,5 @@ function speedUp(interval, setId, callback) {
     }, interval)
   );
 }
-function getSpeedWithinLimit(speed) {
-  return clamp(speed, 30, 240);
-}
-function clamp(value, minValue, maxValue) {
-  return Math.max(minValue, Math.min(maxValue, value));
-}
+
 export default Metronome;

@@ -1,10 +1,15 @@
-@use 'variables' as *;
-@use 'layout' as *;
+@use "/components/UI/layout" as *;
+@use "/components/UI/variables" as *;
 .container{
   @extend .portrait-center;
   width: 400px;
   height: 400px;
   user-select: none;
-  box-shadow: 3px 3px 5px $lightblue;
+  box-shadow: 3px 3px 5px $light-blue;
   border-radius: 10px;
+
+  @include mobile(){
+    transform: scale(0.8);
+  }
 }
+

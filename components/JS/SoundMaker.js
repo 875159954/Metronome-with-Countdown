@@ -1,22 +1,38 @@
-import { useState, useEffect, useRef,useCallback} from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 function SoundMaker(props) {
   const { tempo, ticking } = props;
-  const [state, setState] = useState(0);
-  const changeSpeedDebounced = useCallback(debounce_leading(changeSpeed, 300), []);
-  
-  let bufferSourceRef = useRef();
-  let audioRef = useRef();
+
+  const [audio, setAudio] = useState(null);
+  const [bufferSource, setBufferSource] = useState(null);
+
+  const changeSpeedDebounced = useCallback(
+    debounce_leading(changeSpeed, 300),
+    []
+  );
+
+  useEffect(
+    function createAudioContext() {
+      if (window == undefined || audio) return;
+      setup();
+      return function cleanup() {
+        if (window == undefined || !audio) return;
+        audio.close();
+      };
+    },
+    [audio, bufferSource]
+  );
 
   useEffect(() => {
-    if (!audioRef.current) setup();
-  }, []);
-  useEffect(() => {
-    if (!tempo  ||!ticking|| !audioRef.current||!bufferSourceRef.current) return;
-    changeSpeedDebounced(audioRef.current,bufferSourceRef.current,tempo);
+    if (window == undefined || !audio || !bufferSource) return;
+    changeSpeedDebounced(audio, bufferSource, tempo, ticking);
     return () => {
-      if (audioRef.current) audioRef.current.suspend();
+      if (window == undefined || !audio || !bufferSource) return;
+      audio.suspend();
     };
+
+    //audio and bufferSouce never change, there is no need to track them
+    //eslint-disable-next-line
   }, [tempo, ticking]);
 
   function setup() {
@@ -49,20 +65,19 @@ function SoundMaker(props) {
     bufferSource.connect(audio.destination);
     bufferSource.start(0);
 
-    audioRef.current = audio;
-    bufferSourceRef.current = bufferSource;
+    setAudio(audio);
+    setBufferSource(bufferSource);
   }
 
-  return <div>{`${tempo} ${ticking} ${state} `}</div>;
+  return <div>{`${tempo} ${ticking}  `}</div>;
 }
 
-function changeSpeed(audio,source,tempo) {
-  audio.resume();
+function changeSpeed(audio, source, tempo, ticking) {
+  if (ticking) audio.resume();
   source.loopEnd = (1 / tempo) * 60;
-  console.log(audio,source);
 }
 
-function debounce_leading(func, timeout = 300){
+function debounce_leading(func, timeout = 300) {
   let timer;
   return (...args) => {
     if (!timer) {

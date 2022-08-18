@@ -1,5 +1,5 @@
-@use 'variables' as *;
-@use 'layout' as *;
+@use "../../UI/layout" as *;
+@use "../../UI/variables" as *;
 
 .container{
   @extend .portrait-center;
