@@ -27,6 +27,7 @@ function Pyramide(props) {
           <div className={css.land}></div>
           <div className={css.shadow}></div>
         </div>
+        <div className={css.hide}></div>
       </div>
 
       <button
@@ -36,6 +37,7 @@ function Pyramide(props) {
       >
         {show ? <BsClock /> : <BsHouse />}
       </button>
+
     </div>
   );
 }

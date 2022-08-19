@@ -19,14 +19,14 @@ function TimeSetter(props) {
   }
   function startFocus() {
     stateContext.nextState("START");
-      const context = new AudioContext();
-      const osc = context.createOscillator();
-      osc.connect(context.destination);
+      // const context = new AudioContext();
+      // const osc = context.createOscillator();
+      // osc.connect(context.destination);
 
-      /* Let's play a sine wave for one second. */
+      // /* Let's play a sine wave for one second. */
 
-      osc.start(context.currentTime+5);
-      osc.stop(context.currentTime + 5.5);
+      // osc.start(context.currentTime+5);
+      // osc.stop(context.currentTime + 5.5);
   }
   return (
     <div className={css.container} >

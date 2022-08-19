@@ -24,7 +24,7 @@ function SoundMaker(props) {
     }
   }, [tempo, ticking, beatsPerMeasure]);
 
-  return <div>{`${tempo} ${ticking} ${beatsPerMeasure}  `}</div>;
+  return <div></div>
 }
 
 function createBuffer(tempo, audio, pitch) {

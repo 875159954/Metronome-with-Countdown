@@ -19,6 +19,7 @@ $ground: #dfe166;
   border-radius: 10px;
   animation: slide-in 1s ease-in-out both reverse;
   display: none;
+  
 }
 .show{
   animation: slide-in 1s ease-in-out both ;
@@ -55,6 +56,7 @@ $ground: #dfe166;
   height: 30px;
   background-color: black;
   position: relative;
+  z-index: 1;
   top: -100px;
   clip-path: polygon(13% 0, 70% 100%, 84% 0);
   animation: shadow $duration linear infinite both;
@@ -176,4 +178,12 @@ $ground: #dfe166;
     border-radius: 3px;
     box-shadow: 1px 1px 3px $button-gray;
   }
+}
+.hide{
+  padding: 100px;
+  border-radius: 50%;
+  border: 50px solid #272c34;
+  
+  position: absolute;
+
 }

@@ -5,7 +5,6 @@ import SoundMaker from "./SoundMaker";
 import useLongPress from "../../hooks/useLongPress";
 
 function Metronome(props) {
-  const [info, setInfo] = useState(0);
   const [bpm, setBpm] = useState(60);
   const [beatsPerMeasure, setbeatsPerMeasure] = useState(4);
   const [ticking, setTicking] = useState(false);
@@ -49,8 +48,8 @@ function Metronome(props) {
   );
 
   function changeBpm(e) {
-    if( /iPad|iPhone|iPod/.test(navigator.userAgent))
-      setTicking(false);
+    // if( /iPad|iPhone|iPod/.test(navigator.userAgent))
+    //   setTicking(false);
     
     const isDecrease = e.target.innerText == "-";
     let boundary = 240,
@@ -69,9 +68,7 @@ function Metronome(props) {
   return (
     <div className={css.container}>
       <div className={css.screen}>
-        <div className={css.button} onClick={changeBeats}>
-          test
-        </div>
+      
         <span className={css.depictor}>Allegro</span>
         <span>{bpm}</span>
         <div className={css.bars} ref={barsRef}>
@@ -104,13 +101,12 @@ function Metronome(props) {
         </button>
       </div>
 
-      <button onPointerUp={changeBeats}>{beatsPerMeasure}beats</button>
+      <button className={ css.beatsChanger}  onClick={changeBeats}>{beatsPerMeasure} Beats</button>
       <SoundMaker
         tempo={bpm}
         ticking={ticking}
         beatsPerMeasure={beatsPerMeasure}
       />
-      {info}
     </div>
   );
 }
