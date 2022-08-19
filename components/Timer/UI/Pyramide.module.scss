@@ -6,6 +6,8 @@ $sun: #eded8f;
 $ground: #dfe166;
 .container {
   position: absolute;
+  left: 0;
+  top: 0;
   z-index: 5;
   display: flex;
   justify-content: center;
@@ -13,12 +15,13 @@ $ground: #dfe166;
   background-color: #272c34;
   width: 400px;
   height: 400px;
-  transform: translate(-200px,-55px);
-  
-    z-index: 6;
+  z-index: 6;
   border-radius: 10px;
-  animation: slide-in 0.5s ease-in-out;
+  animation: slide-in 1s ease-in-out both reverse;
   display: none;
+}
+.show{
+  animation: slide-in 1s ease-in-out both ;
 }
 .circle {
   width: 200px;
@@ -142,14 +145,14 @@ $ground: #dfe166;
 }
 @keyframes slide-in {
   from {
-    transform: translate3d(-133px, -207px, 0) scale(0.11, 0.08);
+    transform: scale(0);
     opacity: 0;
   }
   1% {
     opacity: 1;
   }
   to {
-    transform: translate(-200px, -55px) scale(1);
+    transform:  scale(1);
   }
 }
 .shiftMode {
@@ -165,14 +168,12 @@ $ground: #dfe166;
   transition: all 0.3s ease-in-out;
   font-size: 25px;
 
-  &:hover {
-    transform: translate(50px, -20px) scale(1.2);
-    cursor: pointer;
-    border-radius: 3px;
-    box-shadow: 1px 1px 3px $button-gray;
-  }
+   
 
   &:active {
     transform: translate(50px, -20px) scale(0.8);
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px $button-gray;
   }
 }

@@ -2,12 +2,19 @@ import css from "../UI/Metronome.module.scss";
 
 import { useRef, useState, useEffect } from "react";
 import SoundMaker from "./SoundMaker";
+import useLongPress from "../../hooks/useLongPress";
 
 function Metronome(props) {
+  const [info, setInfo] = useState(0);
   const [bpm, setBpm] = useState(60);
   const [beatsPerMeasure, setbeatsPerMeasure] = useState(4);
   const [ticking, setTicking] = useState(false);
-  const [controlId, setControlId] = useState(-1);
+  const button1 = useLongPress({
+    down: changeBpm,
+    up: stopChanging,
+    interval: 300,
+  });
+
   const barsRef = useRef();
 
   function togglePlay(e) {
@@ -21,10 +28,14 @@ function Metronome(props) {
       if (ticking) {
         id = setInterval(() => {
           const bars = Array.from(barsRef.current.children);
-          barsRef.current.style.setProperty("--sparkle-time", `${speed / 1000 + 0.1}s`);
+          barsRef.current.style.setProperty(
+            "--sparkle-time",
+            `${speed / 1000 + 0.1}s`
+          );
           for (let i = 0; i < bars.length; i++) {
             if (i == counter) {
               bars[i].classList.add(css.currentBar);
+              barsRef.current.replaceChild(bars[i], bars[i]);
             } else bars[i].classList.remove(css.currentBar);
           }
           counter = (counter + 1) % beatsPerMeasure;
@@ -36,37 +47,31 @@ function Metronome(props) {
     },
     [ticking, bpm, beatsPerMeasure]
   );
+
   function changeBpm(e) {
-    setBpm(Number(e.target.value));
-  }
-  function handleControl(e) {
-    clearInterval(controlId);
+    if( /iPad|iPhone|iPod/.test(navigator.userAgent))
+      setTicking(false);
+    
     const isDecrease = e.target.innerText == "-";
     let boundary = 240,
       step = 1;
     if (isDecrease) {
       (boundary = 40), (step = -1);
     }
-    const fn = () => {
-      setBpm((pre) => (pre == boundary ? pre : pre + step));
-    };
-    fn();
-    speedUp(200, setControlId, fn);
+    setBpm((pre) => (pre == boundary ? pre : pre + step));
   }
   function stopChanging(e) {
-    clearInterval(controlId);
-    setBpm((pre) => pre);
   }
-  function changeBeats() {
-    setbeatsPerMeasure((pre) => {
-      const next = (pre + 1) % 9;
-      if (next == 0) return 1;
-      return next;
-    });
+  function changeBeats(e) {
+    setbeatsPerMeasure((pre) => (pre == 8 ? pre % 7 : pre + 1));
   }
+
   return (
     <div className={css.container}>
       <div className={css.screen}>
+        <div className={css.button} onClick={changeBeats}>
+          test
+        </div>
         <span className={css.depictor}>Allegro</span>
         <span>{bpm}</span>
         <div className={css.bars} ref={barsRef}>
@@ -80,10 +85,7 @@ function Metronome(props) {
       <div className={css.controls}>
         <button
           className={`${css.button} ${css.decrease}`}
-          onPointerDown={handleControl}
-          onPointerCancel={stopChanging}
-          onPointerUp={stopChanging}
-          onPointerOut={stopChanging}
+          {...button1.handlers}
         >
           -
         </button>
@@ -96,28 +98,24 @@ function Metronome(props) {
         </button>
         <button
           className={`${css.button} ${css.increase}`}
-          onPointerDown={handleControl}
-          onPointerCancel={stopChanging}
-          onPointerUp={stopChanging}
-          onPointerOut={stopChanging}
+          {...button1.handlers}
         >
           +
         </button>
       </div>
 
       <button onPointerUp={changeBeats}>{beatsPerMeasure}beats</button>
-      <SoundMaker tempo={bpm} ticking={ticking} />
+      <SoundMaker
+        tempo={bpm}
+        ticking={ticking}
+        beatsPerMeasure={beatsPerMeasure}
+      />
+      {info}
     </div>
   );
 }
-function speedUp(interval, setId, callback) {
-  interval = interval < 20 ? 20 : interval;
-  setId(
-    setTimeout(() => {
-      callback();
-      speedUp(interval / 1.3, setId, callback);
-    }, interval)
-  );
-}
 
+function clamp(val, min, max) {
+  return Math.min(min, Math.max(max, val));
+}
 export default Metronome;

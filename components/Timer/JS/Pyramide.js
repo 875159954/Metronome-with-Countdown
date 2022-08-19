@@ -8,7 +8,8 @@ function Pyramide(props) {
   const self = useRef();
 
   function shiftMode() {
-    self.current.style.setProperty("display", 'flex');
+    self.current.style.setProperty('display','flex')
+    self.current.classList.toggle(css.show)
     self.current.parentElement.replaceChild(self.current, self.current);
     setShow(!show);
   }
@@ -17,10 +18,6 @@ function Pyramide(props) {
     <div>
       <div
         className={css.container}
-        style={{
-          animationDirection: show ? "normal" : "reverse",
-          animationFillMode: show ? "" : "forwards",
-        }}
         ref={self}
       >
         <div className={css.circle}>

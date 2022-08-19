@@ -2,6 +2,7 @@
 @use "/components/UI/variables" as *;
 .container{
   @extend .portrait-center;
+  position: relative;
   width: 400px;
   height: 400px;
   user-select: none;
