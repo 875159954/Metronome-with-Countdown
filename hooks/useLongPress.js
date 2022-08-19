@@ -1,33 +1,38 @@
 import { useRef } from "react";
 
-export default function useLongPress({down,up,interval}){
+export default function useLongPress({ down, up, interval }) {
   const timerId = useRef();
 
-  function speedUp(interval,e) {
+  function speedUp(interval, e) {
     interval = interval < 20 ? 20 : interval;
     return setTimeout(() => {
       down(e);
-      timerId.current = speedUp(interval / 1.3,e);
-    }, interval)
+      timerId.current = speedUp(interval / 1.3, e);
+    }, interval);
   }
   function handlePointerDown(e) {
     e.preventDefault();
-    down(e);
-    timerId.current= speedUp(interval,e)
+    clearInterval(timerId.current);
+
+    if (typeof down == "function") {
+      down(e);
+      timerId.current = speedUp(interval, e);
+    }
   }
   function handlePointerUp(e) {
     e.preventDefault();
     clearInterval(timerId.current);
-    up(e);
+    if (typeof up == "function") {
+      up(e);
+    }
   }
 
   return {
     handlers: {
       onPointerDown: handlePointerDown,
-      onPointerUp:handlePointerUp,
-      onPointerCancel:handlePointerUp,
-      onPointerLeave:handlePointerUp,
-    }
-  }
-
+      onPointerUp: handlePointerUp,
+      onPointerCancel: handlePointerUp,
+      onPointerLeave: handlePointerUp,
+    },
+  };
 }

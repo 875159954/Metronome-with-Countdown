@@ -1,13 +1,12 @@
 import css from "../UI/TimeSetter.module.scss";
 import React,{useEffect,useState,useContext} from "react";
 import { stateManager } from './Timer'
+import useLongPress from "../../../hooks/useLongPress";
 function TimeSetter(props) {
-  const { focusTime,setFocusTime,nextState } = props;
-  const [timerId, setTimerId] = useState(0);
+  const { focusTime,setFocusTime } = props;
   const stateContext = useContext(stateManager)
-  
+  const changeFoucusTime = useLongPress({down:setTime,up:stopChanging,interval:300})
   function stopChanging(e) {
-    clearInterval(timerId);
   }
   function setTime(e) {
     const isUp = e.target.id == "up";
@@ -17,13 +16,9 @@ function TimeSetter(props) {
       deltaTime = -15;
     }
     setFocusTime((pre) => { console.log(pre); return pre == boundary ? boundary : pre + deltaTime; });
-
-    speedUp(200, setTimerId, () =>
-      setFocusTime((pre) => (pre == boundary ? boundary : pre + deltaTime))
-    );
   }
   function startFocus() {
-    nextState("START");
+    stateContext.nextState("START");
   }
   return (
     <div className={css.container} >
@@ -35,19 +30,19 @@ function TimeSetter(props) {
         <button
           id="up"
           className={`${css.timerButton} ${css.up}`}
-          onPointerUp={stopChanging}
-          onPointerDown={setTime}
-          onPointerLeave={stopChanging}
+          {...changeFoucusTime.handlers}
 
         ></button>
         <button
           className={`${css.timerButton} ${css.down}`}
-          onPointerUp={stopChanging}
-          onPointerDown={setTime}
-          onPointerLeave={stopChanging}
+          {...changeFoucusTime.handlers}
+
         ></button>
       </div>
-      <button className={css.startButton} onClick={startFocus}>
+      <button className={css.startButton} onClick={startFocus}
+      
+      >
+
         开始
       </button>
     </div>
