@@ -20,6 +20,7 @@ function Timer(props) {
     nextState,
     setFocusTime,
   };
+  
   const stateMachine = {
     setting: { START: "counting" },
     counting: { STOP: "failed", HIDE: "hiding", END: "success" },

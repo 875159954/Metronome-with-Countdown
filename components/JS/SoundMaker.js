@@ -2,21 +2,26 @@ import { useEffect, useCallback, useState, useRef } from "react";
 
 function SoundMaker(props) {
   const { tempo, ticking, beatsPerMeasure } = props;
-  useEffect(() => {
-    let audio = null;
-    if (!ticking) return;
-    audio = new AudioContext();
-    createBuffer(tempo, audio, 330);
-    createBuffer(tempo / 4, audio, 370);
-    audio.suspend();
+  const audio = useRef();
 
-    const id = setTimeout(() => {
-      audio.resume();
-    }, 60/tempo*1000); 
+  useEffect(() => {
+    if (!ticking) return;
+    if (!audio.current) {
+      audio.current = new AudioContext();
+    }
+    audio.current.resume();
+
+    const s1 = createBuffer(tempo, audio.current, 330);
+    const s2 = createBuffer(tempo / beatsPerMeasure, audio.current, 370);
+    s1.start(audio.current.currentTime + 60 / tempo);
+    s2.start(audio.current.currentTime + 60 / tempo);
+    
     return () => {
-      clearInterval(id);
-      if (audio) audio.close();
-    };
+      if (s1 || s2) {
+        s1.disconnect()
+        s2.disconnect();
+      }
+    }
   }, [tempo, ticking, beatsPerMeasure]);
 
   return <div>{`${tempo} ${ticking} ${beatsPerMeasure}  `}</div>;
@@ -45,6 +50,8 @@ function createBuffer(tempo, audio, pitch) {
   bufferSource.loop = true;
   bufferSource.loopEnd = frequency;
   bufferSource.connect(audio.destination);
-  bufferSource.start(0);
+  // bufferSource.start(audio.currentTime + 60 / tempo);
+
+  return bufferSource;
 }
 export default SoundMaker;

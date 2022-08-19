@@ -1,20 +1,25 @@
-import css from "../UI/Final.module.scss"
+import css from "../UI/Final.module.scss";
 import { stateManager } from "./Timer";
 
-import { useContext } from 'react';
-import { GiMusicalNotes } from 'react-icons/gi'
-import { FaUndoAlt } from 'react-icons/fa'
+import { useContext, useEffect } from "react";
+import { GiMusicalNotes } from "react-icons/gi";
+import { FaUndoAlt } from "react-icons/fa";
 
 function Final(props) {
-  const {jobState} = props
-  const stateContext = useContext(stateManager)
+  const { jobState } = props;
+  const stateContext = useContext(stateManager);
   function goBackToSetter() {
-    stateContext.nextState('RESTART');
+    stateContext.nextState("RESTART");
   }
+
   return (
     <div>
-      <h1 className={css.title}>{jobState=='success'?<GiMusicalNotes/>:<FaUndoAlt/>}</h1>
-      <button className={css.button } onClick={goBackToSetter}>{jobState=="success"?"再来一次":"重新开始"}</button>
+      <h1 className={css.title}>
+        {jobState == "success" ? <GiMusicalNotes /> : <FaUndoAlt />}
+      </h1>
+      <button className={css.button} onClick={goBackToSetter}>
+        {jobState == "success" ? "再来一次" : "重新开始"}
+      </button>
     </div>
   );
 }
