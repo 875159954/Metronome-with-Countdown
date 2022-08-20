@@ -29,23 +29,23 @@ function ContextProvider(props) {
     return dataRef.current;
   }
   async function playmusic(time = 0) {
-    if (sourceRef.current != null) return;
+    if (isPlaying()) return;
     const source = audioContext.createBufferSource(musicBuffer.current);
     source.buffer = musicBuffer.current;
     source.start(time + audioContext.currentTime);
-    dataRef.current = initSignal(audioContext,source);
+    dataRef.current = initSignal(audioContext, source);
 
     source.connect(audioContext.destination);
     audioContext.resume();
     sourceRef.current = source;
   }
   function stopmusic() {
-    if (sourceRef.current != null) {
-      sourceRef.current.stop();
-      sourceRef.current.disconnect();
-      console.log(sourceRef.current);
-      sourceRef.current = null;
-    }
+    if (!isPlaying()) return;
+    
+    sourceRef.current.stop();
+    sourceRef.current.disconnect();
+    console.log(sourceRef.current);
+    sourceRef.current = null;
   }
   useEffect(() => {
     const audio = new AudioContext();
@@ -73,7 +73,7 @@ function ContextProvider(props) {
     </MyAudioContext.Provider>
   );
 }
-function initSignal(audioContext,source) {
+function initSignal(audioContext, source) {
   const signals = frequencyBands.map(({ frequency, color }) => {
     // Create an analyser
     const analyser = audioContext.createAnalyser();

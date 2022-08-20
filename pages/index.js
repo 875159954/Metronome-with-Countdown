@@ -13,7 +13,7 @@ export default function Home() {
         <Timer />
         <Metronome />
       </Layout>
-      <Visualizer/>
+       <Visualizer/>
     </ContextProvider>
   );
 }

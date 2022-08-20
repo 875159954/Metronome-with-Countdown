@@ -11,21 +11,25 @@ function rootMeanSquaredSignal(data) {
 }
 function Visualizer(props) {
   const [test, setTest] = useState(0);
-  const idRef = useRef();
 
   const audioContext = useContext(MyAudioContext);
   function playmusic() {
     if (audioContext.isPlaying()) return;
     audioContext.playmusic(0);
-    idRef.current = setInterval(() => {
-      draw();
-    }, 1000 / 60);
   }
   function stopmusic() {
     audioContext.stopmusic();
-    clearInterval(idRef.current);
   }
-  function draw() {
+  useEffect(() => {
+    const id = setInterval(() => {
+      draw(audioContext);
+    }, 1000 / 30);
+    return () => clearInterval(id);
+  }
+  ,[])
+
+  function draw(audioContext) {
+    if (audioContext == null) return;
     const signals = audioContext.getData();
     const Canvas = document.getElementById("myCanvas"); // access the canvas object
     const CanvasContext = Canvas.getContext("2d"); // access the canvas context
@@ -46,7 +50,6 @@ function Visualizer(props) {
       const x = Canvas.width/signals.length *i;
       const y = Canvas.height;
       CanvasContext.fillRect(x, Canvas.height, Canvas.width/signals.length, -height);
-      console.log(x, y, height);
       i++
     }
   }
@@ -56,8 +59,6 @@ function Visualizer(props) {
       <button onClick={stopmusic}>stop</button>
       <button onClick={draw}>test</button>
       <canvas id="myCanvas" width="220" height="190">
-        {" "}
-        Your browser still doesn't work!{" "}
       </canvas>
       <h1>{test}</h1>
     </div>

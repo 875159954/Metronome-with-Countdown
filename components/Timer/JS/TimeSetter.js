@@ -2,11 +2,9 @@ import css from "../UI/TimeSetter.module.scss";
 import React,{useEffect,useState,useContext} from "react";
 import { stateManager } from './Timer'
 import useLongPress from "../../../hooks/useLongPress";
-import { MyAudioContext } from "../../ContextProvider";
 function TimeSetter(props) {
   const { focusTime,setFocusTime } = props;
   const stateContext = useContext(stateManager)
-  const audioContext = useContext(MyAudioContext)
   const changeFoucusTime = useLongPress({down:setTime,up:stopChanging,interval:300})
   function stopChanging(e) {
   }
@@ -21,14 +19,6 @@ function TimeSetter(props) {
   }
   function startFocus() {
     stateContext.nextState("START");
-      // const context = new AudioContext();
-      const osc = audioContext.audioContext.createOscillator();
-      osc.connect(audioContext.audioContext.destination);
-      
-      // /* Let's play a sine wave for one second. */
-
-      osc.start(audioContext.audioContext.currentTime+5);
-      osc.stop(audioContext.audioContext.currentTime + 5.5);
   }
   return (
     <div className={css.container} >

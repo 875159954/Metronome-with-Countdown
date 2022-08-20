@@ -9,6 +9,7 @@ function Countdown(props) {
   const [ticking, setTicking] = useState(true);
   const [countdown, setCountdown] = useState(totalTime);
   const [timerId, setTimerId] = useState(0);
+
   const stateContext = useContext(stateManager);
 
   const outerRef = useRef();
@@ -39,8 +40,12 @@ function Countdown(props) {
     stateContext.nextState("STOP");
   }
   function toggleClock() {
-    if (!ticking) initializeTimer();
-    else clearInterval(timerId);
+    if (!ticking) {
+      initializeTimer();
+    }
+    else {
+      clearInterval(timerId);
+    }
     setTicking(!ticking);
   }
 

@@ -1,10 +1,9 @@
 import css from "../UI/Timer.module.scss";
-import {useEffect, useState, createContext,useContext } from "react";
+import { useState, createContext } from "react";
 import Countdown from "./Countdown";
 import TimeSetter from "./TimeSetter";
 import Final from "./Final";
-import { MyAudioContext} from '/components/ContextProvider'
-import Visualizer from "../../JS/Visualizer";
+
 
 export const stateManager = createContext({
   nextState: function (event) {},

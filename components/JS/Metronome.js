@@ -48,8 +48,7 @@ function Metronome(props) {
   );
 
   function changeBpm(e) {
-    // if( /iPad|iPhone|iPod/.test(navigator.userAgent))
-    //   setTicking(false);
+
     
     const isDecrease = e.target.innerText == "-";
     let boundary = 240,

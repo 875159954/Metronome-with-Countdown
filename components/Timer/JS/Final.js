@@ -4,14 +4,18 @@ import { stateManager } from "./Timer";
 import { useContext, useEffect } from "react";
 import { GiMusicalNotes } from "react-icons/gi";
 import { FaUndoAlt } from "react-icons/fa";
-
+import { MyAudioContext } from "../../ContextProvider";
 function Final(props) {
   const { jobState } = props;
   const stateContext = useContext(stateManager);
+  const audioContext = useContext(MyAudioContext);
   function goBackToSetter() {
     stateContext.nextState("RESTART");
   }
-
+  useEffect(() => {
+    if(jobState=='sucecess')audioContext.playmusic();
+    return ()=>{audioContext.stopmusic()}
+  },[])
   return (
     <div>
       <h1 className={css.title}>
