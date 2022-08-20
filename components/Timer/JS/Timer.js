@@ -1,12 +1,10 @@
 import css from "../UI/Timer.module.scss";
-import {
-  useState,
-  createContext,
-} from "react";
+import {useEffect, useState, createContext,useContext } from "react";
 import Countdown from "./Countdown";
 import TimeSetter from "./TimeSetter";
-import Final from './Final'
-
+import Final from "./Final";
+import { MyAudioContext} from '/components/ContextProvider'
+import Visualizer from "../../JS/Visualizer";
 
 export const stateManager = createContext({
   nextState: function (event) {},
@@ -20,7 +18,7 @@ function Timer(props) {
     nextState,
     setFocusTime,
   };
-  
+
   const stateMachine = {
     setting: { START: "counting" },
     counting: { STOP: "failed", HIDE: "hiding", END: "success" },
@@ -38,11 +36,17 @@ function Timer(props) {
   }
   function getComponent() {
     const pages = {
-      setting: <TimeSetter focusTime={focusTime} nextState={nextState} setFocusTime={setFocusTime} />,
+      setting: (
+        <TimeSetter
+          focusTime={focusTime}
+          nextState={nextState}
+          setFocusTime={setFocusTime}
+        />
+      ),
       counting: <Countdown totalTime={focusTime * 60} nextState={nextState} />,
-      success:<Final jobState="success"/>,
-      failed:<Final jobState="failed"/>
-    }
+      success: <Final jobState="success" />,
+      failed: <Final jobState="failed" />,
+    };
     return pages[timerState];
   }
 
