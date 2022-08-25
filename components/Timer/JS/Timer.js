@@ -7,7 +7,7 @@ import Final from "./Final";
 
 export const stateManager = createContext({
   nextState: function (event) {},
-  setFocusTime: function () {},
+  setFocusTime: function () { },
 });
 
 function Timer(props) {
@@ -57,3 +57,4 @@ function Timer(props) {
 }
 
 export default Timer;
+
