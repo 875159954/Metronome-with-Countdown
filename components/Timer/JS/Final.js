@@ -13,7 +13,7 @@ function Final(props) {
     stateContext.nextState("RESTART");
   }
   useEffect(() => {
-    if(jobState=='sucecess')audioContext.playmusic();
+    if(jobState=='success')audioContext.playmusic();
     return ()=>{audioContext.stopmusic()}
   },[])
   return (
