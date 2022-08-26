@@ -4,7 +4,7 @@ import { stateManager } from "./Timer";
 import { useContext, useEffect } from "react";
 import { GiMusicalNotes } from "react-icons/gi";
 import { FaUndoAlt } from "react-icons/fa";
-import { MyAudioContext } from "../../ContextProvider";
+import { MyAudioContext } from "/components/JS/ContextProvider";
 function Final(props) {
   const { jobState } = props;
   const stateContext = useContext(stateManager);

@@ -22,6 +22,9 @@ const frequencyBands = [
 
 function ContextProvider(props) {
   const [audioContext, setAudioContext] = useState();
+  const [gain, setGain] = useState(null);
+  const [mute, setMute] = useState(false);
+
   const sourceRef = useRef();
   const musicBuffer = useRef();
   const dataRef = useRef();
@@ -35,13 +38,13 @@ function ContextProvider(props) {
     source.start(time + audioContext.currentTime);
     dataRef.current = initSignal(audioContext, source);
 
-    source.connect(audioContext.destination);
+    source.connect(gain);
     audioContext.resume();
     sourceRef.current = source;
   }
   function stopmusic() {
     if (!isPlaying()) return;
-    
+
     sourceRef.current.stop();
     sourceRef.current.disconnect();
     console.log(sourceRef.current);
@@ -49,7 +52,10 @@ function ContextProvider(props) {
   }
   useEffect(() => {
     const audio = new AudioContext();
+    const gain = audio.createGain();
+    gain.connect(audio.destination);
     setAudioContext(audio);
+    setGain(gain);
     fetchMusic(audio).then((data) => (musicBuffer.current = data));
     return () => {
       audio.close();
@@ -58,6 +64,16 @@ function ContextProvider(props) {
   function isPlaying() {
     return sourceRef.current != null;
   }
+  function isMute() {
+    return mute;
+  }
+  function toggleMute() {
+    setMute(!mute);
+  }
+  useEffect(() => {
+    if (!gain) return;
+    gain.gain.value = Number(!mute);
+  },[mute])
   const context = {
     audioContext,
     setAudioContext,
@@ -65,7 +81,10 @@ function ContextProvider(props) {
     stopmusic,
     getData,
     isPlaying,
+    isMute,
+    toggleMute,
   };
+  
   return (
     <MyAudioContext.Provider value={context}>
       {props.children}
@@ -73,6 +92,7 @@ function ContextProvider(props) {
     </MyAudioContext.Provider>
   );
 }
+
 function initSignal(audioContext, source) {
   const signals = frequencyBands.map(({ frequency, color }) => {
     // Create an analyser

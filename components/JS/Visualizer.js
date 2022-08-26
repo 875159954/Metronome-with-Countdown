@@ -1,5 +1,5 @@
 import css from "../UI/Visualizer.module.scss";
-import { MyAudioContext } from "/components/ContextProvider";
+import { MyAudioContext } from "/components/JS/ContextProvider";
 import React, { useState, useContext, useEffect, useRef } from "react";
 
 function rootMeanSquaredSignal(data) {
