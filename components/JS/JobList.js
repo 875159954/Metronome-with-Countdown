@@ -3,19 +3,16 @@ import css from "../UI/JobList.module.scss";
 import React, { useRef, useState } from "react";
 import { GiCheckMark } from "react-icons/gi";
 import { RiDeleteBin7Line } from "react-icons/ri";
+import { GrAdd } from "react-icons/gr";
 export default function JobList(props) {
   const [name, setName] = useState("");
-  const [time, setTime] = useState(15);
+
   let { list, title, add, remove, check } = props;
   function toggleCheck(e) {
-    console.log("check");
     const index = e.currentTarget.dataset.index;
-    console.log(title, index);
     check(title, index);
   }
-  /**
-   * @param {Event} e
-   */
+
   function handleDelete(e) {
     e.stopPropagation();
     const index = e.currentTarget.dataset.index;
@@ -23,10 +20,11 @@ export default function JobList(props) {
   }
   function handleAdd(e) {
     e.preventDefault();
+    if (name == "") return;
     add(title, name);
+    setName("");
   }
 
-  console.log(list);
   return (
     <div className={css.container}>
       <nav className={css.title}>
@@ -53,7 +51,11 @@ export default function JobList(props) {
           onChange={(e) => setName(e.target.value)}
         />
 
-        <button>Add</button>
+        <button>
+          <span>
+            <GrAdd />
+          </span>
+        </button>
       </form>
     </div>
   );
