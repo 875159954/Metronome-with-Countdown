@@ -2,7 +2,7 @@ import css from "../UI/JobList.module.scss";
 
 import React, { useRef, useState } from "react";
 import { GiCheckMark } from "react-icons/gi";
-
+import { RiDeleteBin7Line } from "react-icons/ri";
 export default function JobList(props) {
   const [name, setName] = useState("");
   const [time, setTime] = useState(15);
@@ -18,7 +18,7 @@ export default function JobList(props) {
    */
   function handleDelete(e) {
     e.stopPropagation();
-    const index = e.target.dataset.index;
+    const index = e.currentTarget.dataset.index;
     remove(title, index);
   }
   function handleAdd(e) {
@@ -46,23 +46,13 @@ export default function JobList(props) {
           </li>
         ))}
       </ul>
-      <form onSubmit={handleAdd}>
+      <form onSubmit={handleAdd} className={css.form}>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <select
-          value={time}
-          onChange={(e) => {
-            setTime(e.target.value);
-          }}
-        >
-          <option value="15">15</option>
-          <option value="30">30</option>
-          <option value="60">60</option>
-          <option value="90">90</option>
-        </select>
+
         <button>Add</button>
       </form>
     </div>
@@ -75,13 +65,17 @@ function ListItem(props) {
   return (
     <div className={css.listItem} onClick={toggleCheck} data-index={index}>
       <div className={css.square}>
-        <div className={css.check}>
-          {status == "done" ? <GiCheckMark /> : <></>}
-        </div>
+        {status == "done" ? (
+          <div className={css.check}>
+            <GiCheckMark />
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
       <span> {name}</span>
       <button data-index={index} onClick={handleDelete}>
-        delete
+        <RiDeleteBin7Line />
       </button>
     </div>
   );

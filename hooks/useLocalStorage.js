@@ -13,6 +13,7 @@ export function useLocalStorage(props) {
     console.log(obj);
     setLists(obj);
   }, []);
+
   function update(whichList, newList) {
     setLists({
       ...lists,

@@ -2,6 +2,9 @@
 .container {
   width: 100%;
   height: 100%;
+  li {
+    list-style: none;
+  }
 }
 .title {
   height: 50px;
@@ -11,6 +14,38 @@
   padding: 0 20px 0 10px;
   span {
     font-size: 35px;
+  }
+}
+
+.listContainer {
+  padding: 10px 15px;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: scroll;
+}
+.listItem {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  background-color: $text-white;
+  border-radius: 5px;
+  box-shadow: lightgray 0 3px;
+  gap: 10px;
+  span {
+    flex: 1;
+  }
+  button {
+    appearance: none;
+    background-color: inherit;
+    font-size: larger;
+    border: none;
+    outline: none;
+  }
+  animation: popping 0.3s both;
+  &:active {
+    animation: shrink 0.3s both;
   }
 }
 .square {
@@ -23,27 +58,22 @@
 .check {
   color: $light-blue;
   font-size: 30px;
-  animation: swipe 0.3s linear both;
-  transform: translateY(-10px);
+  font-weight: 800;
+  animation: swipe 0.1s linear both;
+  transform: translateY(-10px) scale(1.1);
+  color: rgb(29, 194, 29);
 }
 
-.listItem {
-  padding: 10px 20px;
+.form {
+  position: absolute;
+  bottom: 5px;
+  left: 15px;
+  right: 15px;
   display: flex;
-  align-items: center;
-  background-color: $text-white;
-  border-radius: 5px;
-  box-shadow: lightgray 0 3px;
-  gap: 10px;
-  span {
+  input[type="text"] {
     flex: 1;
+    font-size: 20px;
   }
-}
-.listContainer {
-  padding: 10px 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 @keyframes swipe {
@@ -54,5 +84,31 @@
   75%,
   100% {
     clip-path: polygon(0 0, 0 100%, 100% 100%, 150% -20%);
+  }
+}
+@keyframes shrink {
+  50% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+  100% {
+    transform: scale(0.95);
+    background-color: #fafafa;
+    box-shadow: none;
+  }
+}
+
+@keyframes popping {
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+  }
+  0% {
+    box-shadow: none;
+  }
+  25%,
+  75% {
+    transform: scale(1.01);
   }
 }
