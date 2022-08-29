@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "linux":"next dev -p 4000"
   },
   "dependencies": {
     "mongodb": "^4.8.1",

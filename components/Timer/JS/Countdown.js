@@ -28,7 +28,7 @@ function Countdown(props) {
   function initializeTimer() {
     const id = setInterval(() => {
       setCountdown((pre) => pre - 1);
-    }, 1);
+    }, 1000);
     setTimerId(id);
     return () => clearInterval(id);
   }
@@ -42,8 +42,7 @@ function Countdown(props) {
   function toggleClock() {
     if (!ticking) {
       initializeTimer();
-    }
-    else {
+    } else {
       clearInterval(timerId);
     }
     setTicking(!ticking);
@@ -51,9 +50,8 @@ function Countdown(props) {
 
   return (
     <div>
-
       <div className={css.container}>
-      <Pyramide />
+        <Pyramide />
 
         <h2 className={css.title}></h2>
         <div className={css.outer} ref={outerRef}>

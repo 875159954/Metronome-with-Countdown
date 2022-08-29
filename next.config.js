@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'standalone',
-  basePath:'/metronome'
-}
+  output: "standalone",
+  basePath: "/metronome",
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

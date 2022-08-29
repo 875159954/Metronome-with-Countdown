@@ -1,0 +1,58 @@
+@use "/components/UI/variables" as *;
+.container {
+  width: 100%;
+  height: 100%;
+}
+.title {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px 0 10px;
+  span {
+    font-size: 35px;
+  }
+}
+.square {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  border: 2.5px gray solid;
+  box-shadow: inset 0px 1px black;
+}
+.check {
+  color: $light-blue;
+  font-size: 30px;
+  animation: swipe 0.3s linear both;
+  transform: translateY(-10px);
+}
+
+.listItem {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  background-color: $text-white;
+  border-radius: 5px;
+  box-shadow: lightgray 0 3px;
+  gap: 10px;
+  span {
+    flex: 1;
+  }
+}
+.listContainer {
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@keyframes swipe {
+  0% {
+    clip-path: polygon(0 0, 0 100%, 0 100%, 0 0);
+    transform: translateY(-10px) scale(0.8);
+  }
+  75%,
+  100% {
+    clip-path: polygon(0 0, 0 100%, 100% 100%, 150% -20%);
+  }
+}

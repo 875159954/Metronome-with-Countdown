@@ -22,7 +22,7 @@
   box-shadow: 3px 3px 5px $dark-blue;
   
   @include mobile(){
-    transform: scale(1.3);
+    transform: scale(1.0);
   }
 }
 .play {
