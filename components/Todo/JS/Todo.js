@@ -11,6 +11,7 @@ export default function Todo() {
       ["Delete Me", "done"],
     ],
   });
+  console.log(lists, "why");
   const [showMenu, setShowMenu] = useState(false);
   const [currentList, setCurrentList] = useState("今日待办");
 

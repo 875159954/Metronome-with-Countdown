@@ -6,7 +6,7 @@ export function useLocalStorage(key, initialValue) {
     const item = window.localStorage.getItem(key);
     if (item == "{}" || item == "null") {
       localStorage.setItem(key, JSON.stringify(initialValue));
-      setValue(initialValue);
+      setStoredValue(initialValue);
       return;
     }
     setStoredValue(JSON.parse(item));
@@ -14,11 +14,13 @@ export function useLocalStorage(key, initialValue) {
 
   function setStoredValue(valuePassIn) {
     try {
+      if (valuePassIn == null) throw "try setting null to localStorage";
       const valueToStore =
         valuePassIn instanceof Function ? valuePassIn(value) : valuePassIn;
       setValue(valueToStore);
       if (typeof window !== "undefined") {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        console.log("store");
       }
     } catch (error) {
       console.log(error);
