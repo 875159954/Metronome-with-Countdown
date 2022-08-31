@@ -52,7 +52,6 @@ function Countdown(props) {
     <div>
       <div className={css.container}>
         <Pyramide />
-
         <h2 className={css.title}></h2>
         <div className={css.outer} ref={outerRef}>
           <div className={css.endpoint}></div>
