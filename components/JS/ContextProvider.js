@@ -73,7 +73,7 @@ function ContextProvider(props) {
   useEffect(() => {
     if (!gain) return;
     gain.gain.value = Number(!mute);
-  },[mute])
+  }, [mute]);
   const context = {
     audioContext,
     setAudioContext,
@@ -84,7 +84,7 @@ function ContextProvider(props) {
     isMute,
     toggleMute,
   };
-  
+
   return (
     <MyAudioContext.Provider value={context}>
       {props.children}

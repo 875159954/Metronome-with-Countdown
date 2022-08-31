@@ -1,31 +1,28 @@
 import { useEffect, useState } from "react";
 
-export function useLocalStorage(props) {
-  const { key } = props;
-  let [lists, setLists] = useState();
+export function useLocalStorage(key, initialValue) {
+  let [value, setValue] = useState(initialValue);
   useEffect(() => {
-    let str = localStorage.getItem(key);
-    console.log(str);
-    if (!str)
-      str =
-        '{"今日待办":[["JobA","done"],["JobB","waiting"]], "ListB":[["JobA","done"],["JobB","waiting"]]}';
-    const obj = JSON.parse(str);
-    console.log(obj);
-    setLists(obj);
+    const item = window.localStorage.getItem(key);
+    if (item == "{}" || item == "null") {
+      localStorage.setItem(key, JSON.stringify(initialValue));
+      setValue(initialValue);
+      return;
+    }
+    setStoredValue(JSON.parse(item));
   }, []);
 
-  function update(whichList, newList) {
-    setLists({
-      ...lists,
-      [whichList]: newList,
-    });
+  function setStoredValue(valuePassIn) {
+    try {
+      const valueToStore =
+        valuePassIn instanceof Function ? valuePassIn(value) : valuePassIn;
+      setValue(valueToStore);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
-  //after update lists store it back to local storage
-  useEffect(() => {
-    if (lists == undefined) return;
-    const store = JSON.stringify(lists);
-    localStorage.setItem(key, store);
-  }, [lists]);
-
-  return [lists, update];
+  return [value, setStoredValue];
 }

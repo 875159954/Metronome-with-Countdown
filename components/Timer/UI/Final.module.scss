@@ -5,7 +5,7 @@
   padding: 0.5em 1em;
   border-radius: 3px;
   border: 1px solid $border-white;
-
+  margin-top: 10px;
   color: $bg-white;
   background-color: $button-gray;
   font-size: 15px;
@@ -18,28 +18,28 @@
   &:hover {
     cursor: pointer;
     transform: scale(1.2);
-    opacity: .8;
+    opacity: 0.8;
   }
 
   &:active {
     transition-duration: 0.15s;
     transform: translateY(20%);
   }
-  margin:0 auto;
+  margin: 0 auto;
   display: block;
-  
 }
-.title  {
+.title {
   text-align: center;
   font-size: 120px;
-  margin:45px;
+  margin: 45px;
   animation: swing 1s infinite both;
 }
 @keyframes swing {
-  from,to{
+  from,
+  to {
     transform: rotate(5deg);
   }
-  50%{
+  50% {
     transform: rotate(-5deg);
   }
 }

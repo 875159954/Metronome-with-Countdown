@@ -25,8 +25,7 @@ function Visualizer(props) {
       draw(audioContext);
     }, 1000 / 30);
     return () => clearInterval(id);
-  }
-  ,[])
+  }, []);
 
   function draw(audioContext) {
     if (audioContext == null) return;
@@ -41,26 +40,29 @@ function Visualizer(props) {
       analyser.getFloatTimeDomainData(data);
       const signal = rootMeanSquaredSignal(data);
 
-    
       // Now do the real drawings:
       CanvasContext.fillStyle = color; // set the color to blue
 
-      const height = signal * Canvas.height*10;
+      const height = signal * Canvas.height * 10;
 
-      const x = Canvas.width/signals.length *i;
+      const x = (Canvas.width / signals.length) * i;
       const y = Canvas.height;
-      CanvasContext.fillRect(x, Canvas.height, Canvas.width/signals.length, -height);
-      i++
+      CanvasContext.fillRect(
+        x,
+        Canvas.height,
+        Canvas.width / signals.length,
+        -height
+      );
+      i++;
     }
   }
   return (
     <div>
-      <button onClick={playmusic}>play</button>
-      <button onClick={stopmusic}>stop</button>
-      <button onClick={draw}>test</button>
-      <canvas id="myCanvas" width="220" height="190">
-      </canvas>
-      <h1>{test}</h1>
+      {/* <button onClick={playmusic}>play</button>
+      <button onClick={stopmusic}>stop</button> 
+      buttons for debugging
+      */}
+      <canvas id="myCanvas" width="220" height="190"></canvas>
     </div>
   );
 }
