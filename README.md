@@ -33,4 +33,4 @@ you may also need to configure **nginx** and **firewall** to make the service re
 
     
 # Demo
-To see what this app looks like, open link <a>doggyspace.fun/metronome</a>
+To see what this app looks like, open my [demo website](http://doggyspace.fun/metronome)
