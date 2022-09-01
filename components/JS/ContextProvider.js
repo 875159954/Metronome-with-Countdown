@@ -1,5 +1,5 @@
 import { useEffect, useRef, createContext, useState } from "react";
-import React from "react";
+import useSetupAudioContext from "/hooks/useSetupAudioContext";
 
 export const MyAudioContext = createContext({
   audioContext: null,
@@ -20,13 +20,11 @@ const frequencyBands = [
   { frequency: 4000, color: "#F391C7" },
 ];
 
-function ContextProvider(props) {
-  const [audioContext, setAudioContext] = useState();
-  const [gain, setGain] = useState(null);
+export default function ContextProvider(props) {
+  const [audioContext, gain, musicBuffer] = useSetupAudioContext();
   const [mute, setMute] = useState(false);
 
   const sourceRef = useRef();
-  const musicBuffer = useRef();
   const dataRef = useRef();
   function getData() {
     return dataRef.current;
@@ -37,7 +35,7 @@ function ContextProvider(props) {
     source.buffer = musicBuffer.current;
     source.start(time + audioContext.currentTime);
     dataRef.current = initSignal(audioContext, source);
-
+    console.log(dataRef.current[0].data);
     source.connect(gain);
     audioContext.resume();
     sourceRef.current = source;
@@ -50,17 +48,7 @@ function ContextProvider(props) {
     console.log(sourceRef.current);
     sourceRef.current = null;
   }
-  useEffect(() => {
-    const audio = new AudioContext();
-    const gain = audio.createGain();
-    gain.connect(audio.destination);
-    setAudioContext(audio);
-    setGain(gain);
-    fetchMusic(audio).then((data) => (musicBuffer.current = data));
-    return () => {
-      audio.close();
-    };
-  }, []);
+
   function isPlaying() {
     return sourceRef.current != null;
   }
@@ -75,8 +63,6 @@ function ContextProvider(props) {
     gain.gain.value = Number(!mute);
   }, [mute]);
   const context = {
-    audioContext,
-    setAudioContext,
     playmusic,
     stopmusic,
     getData,
@@ -121,14 +107,3 @@ function initSignal(audioContext, source) {
   });
   return signals;
 }
-async function fetchMusic(audioContext) {
-  const soundResponse = await fetch("/metronome/asset/bgm.mp3", {
-    method: "GET",
-    responseType: "arraybuffer",
-    cache: "force-cache",
-  });
-  const soundArrayBuffer = await soundResponse.arrayBuffer();
-  return await audioContext.decodeAudioData(soundArrayBuffer);
-}
-
-export default ContextProvider;
