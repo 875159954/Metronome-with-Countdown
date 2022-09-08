@@ -14,8 +14,8 @@
   background: conic-gradient(
     var(--button-bg-color) 0deg,
     var(--button-bg-color) var(--angle-end),
-    var(--input-bg-color) var(--angle-end),
-    var(--input-bg-color) 360deg
+    var(--input-bg-color-hover) var(--angle-end),
+    var(--input-bg-color-hover) 360deg
   );
   display: flex;
   justify-content: center;
@@ -62,7 +62,7 @@
   border-radius: 3px;
   border: 1px solid var(--border-color);
 
-  color: var(--input-bg-color);
+  color: var(--text-color-counter-theme);
   background-color: var(--button-bg-color);
   font-size: 15px;
 

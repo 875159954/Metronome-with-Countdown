@@ -4,8 +4,9 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: rgb(227, 239, 243);
+  background-color: var(--global-bg);
   color: var(--text-color);
+  transition: all 0.5s;
   user-select: none;
 }
 
@@ -23,7 +24,7 @@ li {
 ul {
   padding-left: 0;
 }
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -31,7 +32,7 @@ ul {
     color: white;
     background: black;
   }
-}
+} */
 :root {
   /* light mode color scheme */
   --lighter-blue: #0aa6e4ce;
@@ -44,18 +45,32 @@ ul {
 
   --orange: #fbc73a;
   /* dark mode color scheme */
-  --black: #272c34;
+  --black: #000000ff;
+
+  --rich-black-fogra-39: #0a0a0aff;
+
+  --eerie-black: #1a181aff;
+
+  --davys-grey: #505050ff;
+
+  --persian-red: #d1342fff;
+
+  --black-olive: rgb(56, 54, 49);
+
+  --dutch-white: #eee3c1ff;
+  --brown: rgb(161, 145, 96);
 
   /* css variables */
+  --timer-height: 400px;
+  --timer-width: 400px;
+
+  /* custom colors */
   --global-bg: var(--lighter-gray);
   --bg-color-pop: var(--dark-blue);
   --component-bg-color: var(--black);
 
   --text-color: var(--black);
   --text-color-counter-theme: var(--lighter-gray);
-
-  --timer-height: 400px;
-  --timer-width: 400px;
 
   --border-hover: var(--orange);
   --border-color: var(--gray);

@@ -28,7 +28,7 @@ function Countdown(props) {
   function initializeTimer() {
     const id = setInterval(() => {
       setCountdown((pre) => pre - 1);
-    }, 1);
+    }, 1000);
     setTimerId(id);
     return () => clearInterval(id);
   }

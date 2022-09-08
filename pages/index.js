@@ -5,6 +5,7 @@ import css from "../styles/Home.module.css";
 import Layout from "../components/JS/Layout";
 import ContextProvider from "/components/JS/ContextProvider";
 import Todo from "../components/Todo/JS/Todo";
+import NightShift from "../components/JS/NightShift";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Timer />
         <Todo />
       </Layout>
+      <NightShift />
     </ContextProvider>
   );
 }

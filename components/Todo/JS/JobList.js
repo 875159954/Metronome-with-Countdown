@@ -70,9 +70,7 @@ export default function JobList(props) {
         />
 
         <button>
-          <span>
-            <GrAdd />
-          </span>
+          <span>+</span>
         </button>
       </form>
     </div>

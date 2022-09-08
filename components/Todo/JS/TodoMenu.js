@@ -60,9 +60,7 @@ export default function TodoMenu(props) {
           />
 
           <button>
-            <span>
-              <GrAdd />
-            </span>
+            <span>+</span>
           </button>
         </form>
       </div>
