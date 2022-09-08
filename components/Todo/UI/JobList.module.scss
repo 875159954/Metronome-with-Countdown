@@ -86,6 +86,8 @@
   align-items: center;
   input[type="text"] {
     background-color: var(--input-bg-color);
+    color: var(--text-color);
+
     appearance: none;
     flex: 1;
     font-size: 20px;
@@ -93,7 +95,6 @@
     border: none;
     border-radius: 5px;
     box-shadow: 0px 2px 1px gray;
-    transition: all 0.3s;
     &:focus,
     &:hover {
       outline: none;
@@ -102,15 +103,15 @@
   }
   & > button > span {
     display: block;
-    color: var(--border-shadow-color) !important;
-    transform: translateY(18%) scale(1.7);
+    color: var(--text-color) !important;
+    transform: translateY(5%) scale(2.2);
   }
   button {
     appearance: none;
     padding: 8px 16px;
     outline: none;
     border: none;
-    color: var(--border-shadow-color);
+    color: var(--text-color);
     background-color: var(--input-bg-color);
     box-shadow: 1px 2px 1px var(--button-bg-color);
     border-radius: 15px;
