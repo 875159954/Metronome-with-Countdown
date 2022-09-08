@@ -42,7 +42,6 @@ function Visualizer(props) {
 
       // Now do the real drawings:
       CanvasContext.fillStyle = color; // set the color to blue
-
       const height = signal * Canvas.height * 10;
 
       const x = (Canvas.width / signals.length) * i;

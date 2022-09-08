@@ -13,16 +13,16 @@
   background: rgb(89, 89, 182);
   background: linear-gradient(
     270deg,
-    $dark-blue 0%,
+    var(--bg-color-pop) 0%,
     rgba(0, 148, 225, 1) 6%,
     rgb(0, 153, 255) 50%,
     rgba(0, 148, 225, 1) 93%,
-    $dark-blue 100%
+    var(--bg-color-pop) 100%
   );
-  box-shadow: 3px 3px 5px $dark-blue;
-  
-  @include mobile(){
-    transform: scale(1.0);
+  box-shadow: 3px 3px 5px var(--bg-color-pop);
+
+  @include mobile() {
+    transform: scale(1);
   }
 }
 .play {
@@ -65,7 +65,7 @@
   position: absolute;
   transition: 0.3s all;
   background-color: rgb(212, 223, 245);
-  border:none;
+  border: none;
   &:active {
     background-color: rgb(243, 203, 203);
   }
@@ -90,9 +90,9 @@
   height: 3.5em;
   width: 5em;
   font-size: 40px;
-  color: $text-white;
+  color: var(--input-bg-color);
   border: rgb(35, 119, 145) 2px solid;
-  background-color: $lighter-blue;
+  background-color: var(--lighter-blue);
   border-radius: 10px;
   > span:nth-child(2)::after {
     content: "bpm";
@@ -133,7 +133,7 @@
     transform: translate3d(0, 30%, 0);
   }
 }
-.beatsChanger{
+.beatsChanger {
   align-self: flex-end;
   appearance: none;
   padding: 0.5em;
@@ -141,9 +141,9 @@
   border-radius: 5px;
   background-color: inherit;
   border: 2px rgb(189, 179, 179) solid;
-  color:$text-white;
+  color: var(--input-bg-color);
   transition: 0.2s ease-in-out all;
-  &:active{
+  &:active {
     transform: scale(0.8);
   }
 }

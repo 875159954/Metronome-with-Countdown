@@ -6,7 +6,7 @@ $bg-white: #fcffff;
 $bg-white-hover: #f1f1f1;
 $border-white: #d3d0d0;
 $button-gray: #999999;
-$progress-fill: $button-gray;
+$progress-fill: var(--button-bg-color);
 
 $timer-height: 400px;
 $timer-width: 400px;
@@ -15,9 +15,9 @@ $lighter-blue: #0aa6e4ce;
 $light-blue: #0f97cf;
 $dark-blue: #0b549c;
 
-$orange: #fbc73a;
+$border-hover: #fbc73a;
 
-$text-white: $bg-white;
+$text-white: var(--input-bg-color);
 
 @mixin mobile {
   @media (max-width: 600px) {

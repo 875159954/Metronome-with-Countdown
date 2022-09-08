@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "linux":"next dev -p 4000"
+    "linux": "next dev -p 4000"
   },
   "dependencies": {
+    "express": "^4.18.1",
     "mongodb": "^4.8.1",
     "next": "12.2.2",
     "react": "18.2.0",

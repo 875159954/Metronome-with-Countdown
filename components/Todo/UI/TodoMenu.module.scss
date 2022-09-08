@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: $dark-blue;
+  background-color: var(--bg-color-pop);
   animation: slide-in 0.5s ease-in-out both;
   border-radius: 10px;
 }
@@ -20,7 +20,7 @@
   }
 }
 .closeButton {
-  color: white;
+  color: var(--text-color-counter-theme);
   appearance: none;
   position: absolute;
   right: 20px;
@@ -38,7 +38,7 @@
   height: 50px;
   font-size: 20px;
   padding: 10px 20px;
-  color: white;
+  color: var(--text-color-counter-theme);
 }
 .lists {
   display: flex;

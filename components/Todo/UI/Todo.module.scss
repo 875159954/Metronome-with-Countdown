@@ -6,8 +6,8 @@
   width: 400px;
   height: 400px;
   user-select: none;
-  box-shadow: 3px 3px 5px $light-blue;
-  background-color: #eeeeee;
+  box-shadow: 3px 3px 5px var(--border-shadow-color);
+  background-color: var(--input-bg-color-hover);
   border-radius: 10px 10px 10px 10px;
   overflow: hidden;
   @include mobile() {

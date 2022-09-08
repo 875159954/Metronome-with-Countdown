@@ -1,5 +1,10 @@
-@use "../../UI/layout" as *;
-@use "../../UI/variables" as *;
+.portrait-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
   --duration: 13s;
   --background: rgb(215 134 134);
@@ -20,9 +25,11 @@
   animation: slide-in 1s ease-in-out both reverse;
   display: none;
 }
+
 .show {
   animation: slide-in 1s ease-in-out both;
 }
+
 .circle {
   width: 200px;
   height: 200px;
@@ -31,25 +38,28 @@
   overflow: hidden;
   animation: reset var(--duration) linear infinite both;
 }
+
 .sun {
   animation: sun-moveX var(--duration) linear infinite;
-  &::after {
-    content: "";
-    width: 50px;
-    height: 50px;
-    display: block;
-    box-shadow: 0px 0px 20px yellow;
-    background-color: var(--sun);
-    border-radius: 50%;
-    animation: sun-moveY var(--duration) ease-in-out infinite both;
-  }
 }
+.sun::after {
+  content: "";
+  width: 50px;
+  height: 50px;
+  display: block;
+  box-shadow: 0px 0px 20px yellow;
+  background-color: var(--sun);
+  border-radius: 50%;
+  animation: sun-moveY var(--duration) ease-in-out infinite both;
+}
+
 .left {
   width: 130px;
   height: 100px;
   clip-path: polygon(70% 0%, 100% 100%, 20% 100%);
   animation: left var(--duration) linear infinite both;
 }
+
 .shadow {
   width: 200px;
   height: 30px;
@@ -70,11 +80,13 @@
   clip-path: polygon(1% 0%, 20% 100%, 60% 100%);
   animation: right var(--duration) linear infinite both;
 }
+
 .land {
   background-color: var(--ground);
   width: 200px;
   height: 100px;
 }
+
 @keyframes sun-moveX {
   from {
     transform: translateX(-80px) scale(0.4);
@@ -112,36 +124,32 @@
   from {
     background-color: #858d99;
   }
-
   50% {
     background-color: #eaeaea;
   }
-
   to {
     background-color: #ffffff;
   }
 }
 @keyframes reset {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 0;
   }
-  30%,
-  70% {
+  30%, 70% {
     opacity: 1;
   }
 }
 @keyframes shadow {
   from {
     clip-path: polygon(13% 0, 100% 100%, 84% 0);
-    background-color: rgb(146, 141, 141);
+    background-color: #928d8d;
   }
   50% {
     clip-path: polygon(13% 0, 30% 30%, 84% 0);
   }
   to {
     clip-path: polygon(13% 0, 5% 100%, 84% 0);
-    background-color: rgb(117, 116, 116);
+    background-color: #757474;
   }
 }
 @keyframes slide-in {
@@ -168,18 +176,17 @@
   background-color: inherit;
   transition: all 0.3s ease-in-out;
   font-size: 25px;
-
-  &:active {
-    transform: translate(50px, -20px) scale(0.8);
-    cursor: pointer;
-    border-radius: 3px;
-    box-shadow: 1px 1px 3px var(--button-bg-color);
-  }
 }
+.shiftMode:active {
+  transform: translate(50px, -20px) scale(0.8);
+  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px var(--button-bg-color);
+}
+
 .hide {
   padding: 100px;
   border-radius: 50%;
   border: 50px solid #272c34;
-
   position: absolute;
 }

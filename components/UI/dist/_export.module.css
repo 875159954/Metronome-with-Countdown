@@ -1,5 +1,3 @@
-@use "./variables" as *;
-
 :export {
   lighterBlue: var(--lighter-blue);
   border-hover: var(--border-hover);

@@ -5,6 +5,7 @@
   padding: 0.5em;
   animation: shake 0.25s linear 3 both;
 }
+
 @keyframes shake {
   25% {
     transform: translateX(3px) rotate(35deg);
