@@ -15,7 +15,7 @@
   color: var(--text-color-counter-theme);
 
   @include mobile() {
-    transform: scale(1);
+    transform: translateX(0);
   }
 }
 .play {

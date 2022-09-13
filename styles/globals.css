@@ -8,6 +8,7 @@ body {
   color: var(--text-color);
   transition: all 0.5s;
   user-select: none;
+  font-family: monospace !important;
 }
 
 a {

@@ -3,12 +3,15 @@ import css from "../UI/Metronome.module.scss";
 import { useRef, useState, useEffect } from "react";
 import SoundMaker from "./SoundMaker";
 import useLongPress from "../../hooks/useLongPress";
+import Modal from "./Modal";
 
 function Metronome(props) {
   const [bpm, setBpm] = useState(60);
-  const [beatsPerMeasure, setbeatsPerMeasure] = useState(4);
+  const [beatsPerMeasure, setBeatsPerMeasure] = useState(4);
   const [ticking, setTicking] = useState(false);
-  const button1 = useLongPress({
+  const [showModal, setShowModal] = useState(false);
+
+  const controlButton = useLongPress({
     down: changeBpm,
     up: stopChanging,
     interval: 300,
@@ -17,7 +20,7 @@ function Metronome(props) {
   const barsRef = useRef();
 
   function togglePlay(e) {
-    setTicking(!ticking);
+    setTicking((pre) => !pre);
   }
   useEffect(
     function sideEffectofTicking() {
@@ -48,26 +51,43 @@ function Metronome(props) {
   );
 
   function changeBpm(e) {
-
-    
-    const isDecrease = e.target.innerText == "-";
-    let boundary = 240,
-      step = 1;
-    if (isDecrease) {
-      (boundary = 40), (step = -1);
-    }
-    setBpm((pre) => (pre == boundary ? pre : pre + step));
+    const isDecrease =
+      e.key == "ArrowLeft" || e.key == "ArrowDown" || e.target.innerText == "-";
+    const step = isDecrease ? -1 : 1;
+    setBpm((pre) => clamp(pre + step, 40, 240));
   }
-  function stopChanging(e) {
-  }
+  function stopChanging(e) {}
   function changeBeats(e) {
-    setbeatsPerMeasure((pre) => (pre == 8 ? pre % 7 : pre + 1));
+    setBeatsPerMeasure((pre) => (pre == 8 ? pre % 7 : pre + 1));
   }
-
+  function toggleModal() {
+    setShowModal(!showModal);
+  }
+  function handleKeyPress(e) {
+    if (ArrowKeys.includes(e.key)) {
+      changeBpm(e);
+    }
+    console.log("down");
+  }
+  function handleKeyUp(e) {
+    if (e.key == "`" || e.key == "-") {
+      toggleModal();
+    } else if (e.key == " ") {
+      togglePlay();
+    }
+    console.log("up");
+  }
+  useEffect(function autoSelect() {
+    document.addEventListener("keydown", handleKeyPress);
+    document.addEventListener("keyup", handleKeyUp);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  }, []);
   return (
     <div className={css.container}>
-      <div className={css.screen}>
-      
+      <div className={css.screen} onClick={toggleModal}>
         <span className={css.depictor}>Allegro</span>
         <span>{bpm}</span>
         <div className={css.bars} ref={barsRef}>
@@ -81,7 +101,7 @@ function Metronome(props) {
       <div className={css.controls}>
         <button
           className={`${css.button} ${css.decrease}`}
-          {...button1.handlers}
+          {...controlButton.handlers}
         >
           -
         </button>
@@ -94,23 +114,37 @@ function Metronome(props) {
         </button>
         <button
           className={`${css.button} ${css.increase}`}
-          {...button1.handlers}
+          {...controlButton.handlers}
         >
           +
         </button>
       </div>
 
-      <button className={ css.beatsChanger}  onClick={changeBeats}>{beatsPerMeasure} Beats</button>
+      <button className={css.beatsChanger} onClick={changeBeats}>
+        {beatsPerMeasure} Beats
+      </button>
       <SoundMaker
         tempo={bpm}
         ticking={ticking}
         beatsPerMeasure={beatsPerMeasure}
       />
+      {showModal ? (
+        <Modal
+          title="输入节拍数"
+          toggleModal={toggleModal}
+          setBpm={setBpm}
+          previousValue={bpm}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
+export default Metronome;
 
 function clamp(val, min, max) {
-  return Math.min(min, Math.max(max, val));
+  return Math.max(min, Math.min(max, val));
 }
-export default Metronome;
+
+var ArrowKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];

@@ -22,6 +22,20 @@
     font-size: 20px;
   }
 }
+.logo {
+  height: 2em;
+  width: 2em;
+  border: 1px solid var(--text-color-counter-theme);
+  background-color: var(--bg-color-pop);
+  color: var(--text-color-counter-theme);
+  font-size: 28px;
+  line-height: 0.8em;
+  border-radius: 2px;
+}
+.logoText {
+  display: block;
+  transform: translate3d(43%, 130%, 0);
+}
 .slogan {
   position: absolute;
   left: 50%;
