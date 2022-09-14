@@ -7,6 +7,7 @@ import Modal from "./Modal";
 
 function Metronome(props) {
   const [bpm, setBpm] = useState(60);
+  const [speedInfo, setSpeedInfo] = useState("Adagio");
   const [beatsPerMeasure, setBeatsPerMeasure] = useState(4);
   const [ticking, setTicking] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -22,6 +23,10 @@ function Metronome(props) {
   function togglePlay(e) {
     setTicking((pre) => !pre);
   }
+  useEffect(() => {
+    let nextInfo = findFirstLess(bpm);
+    setSpeedInfo(nextInfo);
+  }, [bpm]);
   useEffect(
     function sideEffectofTicking() {
       const speed = 60000 / bpm;
@@ -88,7 +93,7 @@ function Metronome(props) {
   return (
     <div className={css.container}>
       <div className={css.screen} onClick={toggleModal}>
-        <span className={css.depictor}>Allegro</span>
+        <span className={css.depictor}>{speedInfo}</span>
         <span>{bpm}</span>
         <div className={css.bars} ref={barsRef}>
           {Array(beatsPerMeasure)
@@ -146,5 +151,34 @@ export default Metronome;
 function clamp(val, min, max) {
   return Math.max(min, Math.min(max, val));
 }
-
+const speedSheet = {
+  Prestissimo: 178,
+  Presto: 168,
+  Allegrissimo: 151,
+  Vivacissimo: 141,
+  Vivace: 133,
+  Allegro: 110,
+  Allegretto: 98,
+  Moderato: 86,
+  Andantino: 78,
+  Andante: 73,
+  "Andante moderato": 70,
+  Adagietto: 66,
+  Adagio: 56,
+  Larghetto: 51,
+  Largo: 46,
+  Lento: 41,
+  Grave: 20,
+};
+function findFirstLess(speed) {
+  let keys = Object.keys(speedSheet);
+  let i = 0,
+    j = keys.length - 1;
+  while (i < j) {
+    let m = (i + j) >> 1;
+    if (speedSheet[keys[m]] <= speed) j = m;
+    else i = m + 1;
+  }
+  return keys[i];
+}
 var ArrowKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
